@@ -14,3 +14,7 @@ ft_otp.key
 # Assistant notes (kept local)
 MEMORY.md
 CLAUDE.md
+
+# SDD documents (kept local)
+specs/
+docs/constitution.md
