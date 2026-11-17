@@ -10,3 +10,7 @@ dist/
 
 # Encrypted key produced by `ft_otp -g`
 ft_otp.key
+
+# Assistant notes (kept local)
+MEMORY.md
+CLAUDE.md
