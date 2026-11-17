@@ -13,6 +13,7 @@ class Options:
     key_file: str | None
     interface: bool
     run_tests: bool
+    reset: bool
     debug: bool
 
 
@@ -22,29 +23,37 @@ def build_parser() -> argparse.ArgumentParser:
         prog="ft_otp",
         description="Generate time-based one-time passwords (TOTP).",
     )
-    parser.add_argument(
+
+    actions = parser.add_mutually_exclusive_group(required=True)
+    actions.add_argument(
         "-g",
         "--generate",
         metavar="FILE",
-        help="store the 64 hex character key from FILE, encrypted, in ft_otp.key",
+        help="store the hex key (64-1024 characters) from FILE, encrypted, "
+        "in ft_otp.key",
     )
-    parser.add_argument(
+    actions.add_argument(
         "-k",
         "--key",
         metavar="FILE",
         help="print a one-time password generated from the key in FILE",
     )
-    parser.add_argument(
+    actions.add_argument(
         "-i",
         "--interface",
         action="store_true",
         help="launch the graphical interface",
     )
-    parser.add_argument(
+    actions.add_argument(
         "-t",
         "--run-tests",
         action="store_true",
         help="run the test suite",
+    )
+    actions.add_argument(
+        "--reset",
+        action="store_true",
+        help="erase ft_otp.key and the secret file (.env), after confirmation",
     )
     parser.add_argument(
         "--debug",
@@ -62,5 +71,6 @@ def parse_arguments(argv: Sequence[str] | None = None) -> Options:
         key_file=args.key,
         interface=args.interface,
         run_tests=args.run_tests,
+        reset=args.reset,
         debug=args.debug,
     )

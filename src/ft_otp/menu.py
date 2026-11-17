@@ -27,12 +27,15 @@ def select(stdscr: curses.window, prompt: str, options: list[str]) -> int:
             return selected
 
 
-def show_menu(stdscr: curses.window, name: str) -> str:
-    """Display the menu registered as `name` and return the chosen option."""
+def show_menu(stdscr: curses.window, name: str, details: str = "") -> str:
+    """Display the menu registered as `name` and return the chosen option.
+
+    `details` is shown above the registered prompt (e.g. warnings).
+    """
     prompt, options = MENUS[name]
-    return options[select(stdscr, prompt, options)]
+    return options[select(stdscr, details + prompt, options)]
 
 
-def run_menu(name: str) -> str:
+def run_menu(name: str, details: str = "") -> str:
     """Open a curses session, show the menu `name`, return the choice."""
-    return curses.wrapper(show_menu, name)
+    return curses.wrapper(show_menu, name, details)
